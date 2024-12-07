@@ -58,6 +58,29 @@ Example stock data payload:
     "timestamp": "2024-12-07T12:50:00Z"
   }
 
+## Follow-up Query
+
+### Query Modifications
+The following modifications were made to the Stream Analytics query:
+- **Filter Condition**: Only stock events where the price is greater than $20 are included.
+- **Output Fields**: The output includes the Symbol, Price, Trade Range (difference between High and Low), Volume, Market Cap Value, and Event Time.
+
+### Modified Query:
+```sql
+SELECT 
+    Symbol,
+    Price AS Price,
+    (High - Low) AS TradeRange,
+    Volume,
+    Market_Cap AS MarketCapValue,
+    EventTime AS EventTime
+INTO 
+    [BlobStorageOutput]
+FROM 
+    [StockEventsInput]
+WHERE 
+    Price > 20
+
 
 
  
